@@ -97,6 +97,7 @@ model FDClient {
   health      Decimal
   nps         Decimal
   users       FDUser[]
+  keyContact  String
 }
 
 model FDUser {
@@ -107,6 +108,28 @@ model FDUser {
   createdAt     DateTime  @default(now())
   client        FDClient @relation(fields: [id], references: [id])
   status        Status
+}
+
+model Vendors{
+  id Int @id @default(autoincrement())
+  name String?
+}
+
+model Modules{
+  id Int @id @default(autoincrement())
+  name String?
+}
+
+model MediaMarket{
+  id Int @id @default(autoincrement())
+}
+
+model ProductionMarket{
+  id Int @id @default(autoincrement())
+}
+
+model AgencyMarket{
+  id Int @id @default(autoincrement())
 }
 
 enum Role {
