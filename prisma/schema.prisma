@@ -98,38 +98,56 @@ model FDClient {
   nps         Decimal
   users       FDUser[]
   keyContact  String
+  sso         SSO
 }
 
 model FDUser {
-  id            String    @id
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  createdAt     DateTime  @default(now())
-  client        FDClient @relation(fields: [id], references: [id])
-  status        Status
+  id              String    @id @default(cuid())
+  firstName       String?
+  lastName        String?
+  country         String?
+  state           String?
+  email           String?   @unique
+  linkedin        String?
+  createdAt       DateTime  @default(now())
+  client          FDClient @relation(fields: [id], references: [id])
+  status          Status
+  // modulesEnabled  Modules[] 
+  lastActive      DateTime
+  logs            Logs[]
+  metaData        String?
 }
 
 model Vendors{
-  id Int @id @default(autoincrement())
-  name String?
+  id   Int     @id @default(autoincrement())
+  name String? @unique
 }
 
 model Modules{
-  id Int @id @default(autoincrement())
-  name String?
+  id       Int      @id @default(autoincrement())
+  name     String?  @unique
 }
 
 model MediaMarket{
-  id Int @id @default(autoincrement())
+  id      Int       @id @default(autoincrement())
+  name    String?   @unique
 }
 
 model ProductionMarket{
-  id Int @id @default(autoincrement())
+  id      Int           @id @default(autoincrement())
+  name    String?       @unique
 }
 
 model AgencyMarket{
-  id Int @id @default(autoincrement())
+  id      Int           @id @default(autoincrement())
+  name    String?       @unique
+}
+
+model Logs{
+  id        String    @id @default(cuid())
+  userID    String
+  user      FDUser    @relation(fields: [userID], references: [id])
+  log_time  DateTime  @default(now())
 }
 
 enum Role {
@@ -143,4 +161,10 @@ enum Status{
   ARCHIVED
   DELETED
   INACTIVE
+  INVITED
+}
+
+enum SSO{
+  GOOGLE
+  MICROSOFT
 }
