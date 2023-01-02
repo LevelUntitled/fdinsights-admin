@@ -113,7 +113,6 @@ model FDUser {
   client          FDClient @relation(fields: [id], references: [id])
   status          Status
   // modulesEnabled  Modules[] 
-  lastActive      DateTime
   logs            Logs[]
   metaData        String?
 }

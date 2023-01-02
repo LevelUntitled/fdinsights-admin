@@ -10,9 +10,11 @@ export const helloRouter = router({
         greeting: `world`,
       };
     }),
+    
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.fDClient.findMany();
   }),
+
   createVendor: publicProcedure
   .input(z.object({
     name : z.string(),
