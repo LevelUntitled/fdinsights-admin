@@ -99,6 +99,7 @@ model FDClient {
   users       FDUser[]
   keyContact  String
   sso         SSO
+  // isDeleted   Boolean  @default(false)
 }
 
 model FDUser {
@@ -115,11 +116,12 @@ model FDUser {
   // modulesEnabled  Modules[] 
   logs            Logs[]
   metaData        String?
+  // isDeleted   Boolean  @default(false)
 }
 
 model Vendors{
-  id   Int     @id @default(autoincrement())
-  name String? @unique
+  id      Int        @id @default(autoincrement())
+  name    String?    @unique
 }
 
 model Modules{
@@ -130,11 +132,15 @@ model Modules{
 model MediaMarket{
   id      Int       @id @default(autoincrement())
   name    String?   @unique
+  country String? 
+  status  Status     @default(ACTIVE)
 }
 
 model ProductionMarket{
   id      Int           @id @default(autoincrement())
   name    String?       @unique
+  country String? 
+  status  Status     @default(ACTIVE)
 }
 
 model AgencyMarket{

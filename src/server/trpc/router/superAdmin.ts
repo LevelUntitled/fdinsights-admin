@@ -1,3 +1,4 @@
+import { Status } from '@prisma/client';
 import {z} from 'zod';
 import { publicProcedure, protectedProcedure, router } from '../trpc';
 
@@ -36,6 +37,40 @@ export const superAdminRouter = router({
                     notes       : input.notes,
                     subDomain   : input.subDomain,
                 }
-            }) ;
+            });
         }),
+    
+    updateMetaData : protectedProcedure
+        .input(z.object({
+            id : z.string(),
+            score : z.string().optional(),
+            health : z.string().optional(),
+            status : z.nativeEnum(Status).optional(),
+        }))
+        .mutation(async({ctx,input}) => {
+            return ctx.prisma.fDClient.update({
+                where: {
+                    id : input.id,
+                },
+                data : {
+                    nps : input.score,
+                    health : input.health,
+                    status : input.status,
+                }
+            })
+
+        }),
+    
+    getUsers : publicProcedure
+        .input(z.object({
+            id : z.string(),
+        }))
+        .mutation(async({ctx, input}) => {
+            const id = input.id;
+            const result = await ctx.prisma.$queryRaw`SELECT FDUser FROM FDClient WHERE id = ${id}`;
+
+            return result
+        }),
+
+    
 })
