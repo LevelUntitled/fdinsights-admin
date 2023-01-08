@@ -31,6 +31,13 @@ const updateDisciplines = async(req:NextApiRequest, res:NextApiResponse) => {
             }
         })
 
+        res.status(200).json({
+            code : 200,
+            status : "PASSED",
+            error  : "FALSE",
+            data   : updatedResult
+        });
+
     }catch(err){
         console.log(err);
         
