@@ -4,45 +4,42 @@ import { prisma } from "../../../server/db/client";
 
 const inputDataValidations = z.object({
     name   : z.string().min(1),
-    country: z.string().min(1).max(60),
+    description: z.string().min(5),
 })
 
 const validateInputData = (inputs: unknown) => {
     const isValidData = inputDataValidations.parse(inputs);
-    
     return isValidData;
 };
 
-const createMarket = async(req:NextApiRequest, res :NextApiResponse) => {
-    
+const createDiscipline = async(req:NextApiRequest, res:NextApiResponse) => {
     try{
-        let sanitizedInput = validateInputData(req.body);
 
-        const result = await prisma.markets.create({
-            data : {
+        let sanitizedInput = validateInputData(req.body);
+        const result = await prisma.disciplines.create({
+            data: {
                 name : sanitizedInput.name,
-                country: sanitizedInput.country,
+                description : sanitizedInput.description
             }
-        })        
+        })
 
         res.status(200).json({
-            code   : 200,
-            status : "PASSED",
+            status : "SUCCESS",
             error  : "FALSE",
-            data   : result
+            data   : result,
+            code   : 200
         })
-        
+
 
     }catch(err){
         console.log(err);
-
+        
         res.status(400).json({
             status : "FAILED",
             error  : "TRUE",
             code   : 400
         })
-        
     }
 }
 
-export default createMarket;
+export default createDiscipline;

@@ -105,6 +105,8 @@ model FDClient {
   mediaMarket       Json?
   agencyMarket      Json?
   productionMarket  Json?
+  markets           MarketsAndFDClients[]
+  disciplines       DisciplinesAndFDClients[]
   // isDeleted   Boolean  @default(false)
 }
 
@@ -185,6 +187,7 @@ model Markets{
   name    String
   country String
   status  Status  @default(ACTIVE)
+  users   MarketsAndFDClients[]
 }
 
 model Disciplines{
@@ -192,6 +195,25 @@ model Disciplines{
   name        String
   description String
   status      Status  @default(ACTIVE)
+  clients     DisciplinesAndFDClients[]
+}
+
+model MarketsAndFDClients{
+  client    FDClient   @relation(fields: [clientId], references: [id])
+  clientId  String
+  markets   Markets    @relation(fields: [marketId], references: [id])
+  marketId  Int
+  
+  @@id([clientId, marketId])
+}
+
+model DisciplinesAndFDClients{
+  client       FDClient   @relation(fields: [clientId], references: [id])
+  clientId     String
+  discipline   Disciplines    @relation(fields: [disciplineId], references: [id])
+  disciplineId Int
+  
+  @@id([clientId, disciplineId])
 }
 
 enum Role {

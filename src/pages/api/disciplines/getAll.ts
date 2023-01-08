@@ -2,10 +2,10 @@ import { type NextApiRequest, type NextApiResponse } from "next";
 
 import { prisma } from "../../../server/db/client";
 
-const getAll = async (req: NextApiRequest, res: NextApiResponse) => {
+const getAll = async(req:NextApiRequest, res:NextApiResponse) => {
     try{
-        const getAllActive = await prisma.markets.findMany({
-            where : {
+        const getAllActive = await prisma.disciplines.findMany({
+            where: {
                 status : 'ACTIVE'
             }
         })
@@ -26,7 +26,6 @@ const getAll = async (req: NextApiRequest, res: NextApiResponse) => {
             code   : 400
         })
     }
-    
-};
+}
 
 export default getAll;
