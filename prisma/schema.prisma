@@ -179,10 +179,6 @@ model Logs{
   log_time  DateTime  @default(now())
 }
 
-enum Role {
-  CLIENT
-  ADMIN
-}
 
 model Markets{
   id      Int     @id @default(autoincrement())
@@ -196,6 +192,11 @@ model Disciplines{
   name        String
   description String
   status      Status  @default(ACTIVE)
+}
+
+enum Role {
+  CLIENT
+  ADMIN
 }
 
 enum Status{
