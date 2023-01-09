@@ -3,7 +3,18 @@ import {prisma} from "../../../server/db/client";
 
 const getAll = async( req:NextApiRequest, res:NextApiResponse ) => {
     try{
-        const getAllActive = await prisma.metrics
+        const getAllActive = await prisma.metrics.findMany({
+            where: {
+                metricStatus : 'ACTIVE'
+            },
+        })
+
+        res.status(200).json({
+            status : "SUCCESS",
+            error  : "FALSE",
+            data   : getAllActive,
+            code   : 200
+        })
 
 
     }catch(err){

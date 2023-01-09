@@ -221,7 +221,7 @@ model Metrics{
   metricName          String
   metricDescription   String
   metricCategory      String
-  metricStatus        Status
+  metricStatus        Status    @default(ACTIVE)
 }
 
 enum Role {
