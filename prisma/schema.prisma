@@ -108,6 +108,7 @@ model FDClient {
   markets           MarketsAndFDClients[]
   disciplines       DisciplinesAndFDClients[]
   // isDeleted   Boolean  @default(false)
+  lastModified  DateTime  @updatedAt
 }
 
 model FDUser {
@@ -124,6 +125,7 @@ model FDUser {
   // modulesEnabled  Modules[] 
   logs            Logs[]
   // isDeleted   Boolean  @default(false)
+  lastModified  DateTime  @updatedAt
 }
 
 model Vendors{
@@ -138,12 +140,14 @@ model Vendors{
   subsidiaries  Json
   linkedinUrl   String
   tags          Json
+  lastModified  DateTime  @updatedAt
 }
 
 model Modules{
   id       Int      @id @default(autoincrement())
   name     String   @unique
   clients  ClientsAndModules[]
+  lastModified  DateTime  @updatedAt
 }
 
 model ClientsAndModules {
@@ -153,6 +157,7 @@ model ClientsAndModules {
   moduleId  Int
   
   @@id([clientId, moduleId])
+  lastModified  DateTime  @updatedAt
 }
 
 model MediaMarket{
@@ -160,6 +165,7 @@ model MediaMarket{
   name    String    @unique
   country String 
   status  Status    @default(ACTIVE)
+  lastModified  DateTime  @updatedAt
 }
 
 model ProductionMarket{
@@ -167,11 +173,13 @@ model ProductionMarket{
   name    String       @unique
   country String 
   status  Status       @default(ACTIVE)
+  lastModified  DateTime  @updatedAt
 }
 
 model AgencyMarket{
   id      Int           @id @default(autoincrement())
   name    String        @unique
+  lastModified  DateTime  @updatedAt
 }
 
 model Logs{
@@ -179,6 +187,8 @@ model Logs{
   userID    String
   user      FDUser    @relation(fields: [userID], references: [id])
   log_time  DateTime  @default(now())
+  lastModified  DateTime  @updatedAt
+
 }
 
 
@@ -188,6 +198,8 @@ model Markets{
   country String
   status  Status  @default(ACTIVE)
   users   MarketsAndFDClients[]
+  lastModified  DateTime  @updatedAt
+
 }
 
 model Disciplines{
@@ -196,6 +208,8 @@ model Disciplines{
   description String
   status      Status  @default(ACTIVE)
   clients     DisciplinesAndFDClients[]
+  lastModified  DateTime  @updatedAt
+
 }
 
 model MarketsAndFDClients{
@@ -205,6 +219,8 @@ model MarketsAndFDClients{
   marketId  Int
   
   @@id([clientId, marketId])
+  lastModified  DateTime  @updatedAt
+
 }
 
 model DisciplinesAndFDClients{
@@ -214,6 +230,8 @@ model DisciplinesAndFDClients{
   disciplineId Int
   
   @@id([clientId, disciplineId])
+  lastModified  DateTime  @updatedAt
+
 }
 
 model Metrics{
@@ -222,6 +240,118 @@ model Metrics{
   metricDescription   String
   metricCategory      String
   metricStatus        Status    @default(ACTIVE)
+
+  metricRates         MetricRates?
+  lastModified        DateTime  @updatedAt
+
+}
+
+model MetricRates{
+  id            Int       @id @default(autoincrement())
+  metric        Metrics   @relation(fields: [metricId], references: [metricId])
+  metricId      Int       @unique
+  discipline    String
+  market        String
+  value         Int
+  tier          String
+  status        Status    @default(ACTIVE)
+  lastModified  DateTime  @updatedAt
+}
+
+model Staff{
+  id                Int    @id @default(autoincrement())
+  jobTitle          String
+  expInYrs          Int
+  abbrevations      String
+  description       String
+  alternativeTitles String?
+  status            Status @default(ACTIVE)
+
+  // staffRates        StaffRates?
+  lastModified      DateTime  @updatedAt
+}
+
+model StaffRates{
+  id            Int       @id @default(autoincrement())
+  jobTitle      String
+  discipline    String
+  market        String
+  dept          String
+  tier          String
+  status        Status    @default(ACTIVE)
+  lastModified  DateTime  @updatedAt
+}
+
+model Channel{
+  id          Int     @id @default(autoincrement())
+  name        String
+  desc        String
+  status      Status  @default(ACTIVE)
+  lastModified  DateTime  @updatedAt
+}
+
+model ChannelRates{
+  id            Int    @id @default(autoincrement())
+  market        String
+  discipline    String
+  lowRate       Int
+  highRate      Int
+  status        Status  @default(ACTIVE)
+  lastModified  DateTime  @updatedAt
+}
+
+model ChannelNotes{
+  id         Int           @id @default(autoincrement())
+  market     String
+  channels   Json
+  notes      String
+  status     Status       @default(ACTIVE)
+  lastModified  DateTime  @updatedAt
+}
+
+model assets{
+  id        Int       @id @default(autoincrement())
+  name      String 
+  category  String
+  type      String
+  status    Status    @default(ACTIVE)
+  lastModified  DateTime  @updatedAt
+}
+
+model AssetsRates{
+  id            Int       @id @default(autoincrement())
+  name          String
+  discipline    String
+  dept          String
+  jobTitle      String
+  category      String
+  type          String
+  status        Status   @default(ACTIVE)
+  goldPrice     Json
+  silverPrice   Json
+  bronzePrice   Json
+  lastModified  DateTime  @updatedAt
+}
+
+model Elements{
+  id      Int     @id @default(autoincrement())
+  name    String
+  desc    String
+  type    String
+  status  Status  @default(ACTIVE)
+  lastModified  DateTime  @updatedAt
+}
+
+model ElementsRates{
+  id            Int   @id @default(autoincrement())
+  name          String
+  markets       String
+  discipline    String
+  goldPrice     Json
+  silverPrice   Json
+  bronzePrice   Json
+  status        Status  @default(ACTIVE)
+  lastModified  DateTime  @updatedAt
 }
 
 enum Role {
