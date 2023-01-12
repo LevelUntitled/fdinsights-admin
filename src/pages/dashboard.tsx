@@ -1,10 +1,13 @@
 import React from "react";
+import Navbar from "../components/shared/navbar/navBar";
 import Sidebar from "../components/shared/sideBar/sideBar";
 
 const Dashboard = () => {
   return (
     <div>
-      <Sidebar />
+      {/* <Sidebar /> */}
+      <Navbar />
+      <h1>Dashboard</h1>
     </div>
   );
 };

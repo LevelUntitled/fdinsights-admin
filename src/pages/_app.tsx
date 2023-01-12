@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
-
+import "../styles/Home.module.css";
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },

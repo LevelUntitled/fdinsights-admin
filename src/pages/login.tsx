@@ -42,9 +42,9 @@ const Login = ({ history }: LoginProps) => {
                     </div>
                     <div className="auth-content my-auto">
                       <div className="text-center">
-                        <h5 className="mb-0">Welcome Back !</h5>
+                        <h5 className="mb-0">Welcome Back!</h5>
                         <p className="text-muted mt-2">
-                          Sign in to continue to Minia.
+                          Sign in to continue to FdInsight.
                         </p>
                       </div>
                       <AvForm className="custom-form mt-4 pt-2">
@@ -53,7 +53,7 @@ const Login = ({ history }: LoginProps) => {
                           <AvField
                             name="email"
                             label="Email"
-                            value="admin@themesbrand.com"
+                            value="admin@fdinsight.com"
                             className="form-control"
                             placeholder="Enter email"
                             type="email"
@@ -187,13 +187,6 @@ const Login = ({ history }: LoginProps) => {
                           </p>{" "}
                         </p>
                       </div>
-                    </div>
-                    <div className="mt-md-5 mt-4 text-center">
-                      <p className="mb-0">
-                        © {new Date().getFullYear()} Minia . Crafted with{" "}
-                        <i className="mdi mdi-heart text-danger"></i> by
-                        Themesbrand
-                      </p>
                     </div>
                   </div>
                 </div>

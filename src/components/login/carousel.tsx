@@ -61,7 +61,7 @@ const CarouselLogin = () => {
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
       >
-        <div className="carousel-item active">
+        <div className="carousel-item active border-blue-700 bg-transparent ">
           <div className="testi-contain text-white">
             <i className="bx bxs-quote-alt-left text-success display-6"></i>
 
@@ -89,9 +89,11 @@ const CarouselLogin = () => {
     );
   });
 
+  //add bg with image
+
   return (
     <React.Fragment>
-      <div className="col-xxl-9 col-lg-8 col-md-7">
+      <div className=" col-xxl-9 col-lg-8 col-md-7 bg-blue-400 ">
         <div className="auth-bg pt-md-5 d-flex p-4">
           <div className="bg-overlay bg-primary"></div>
           <ul className="bg-bubbles">
