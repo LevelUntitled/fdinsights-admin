@@ -216,6 +216,14 @@ model DisciplinesAndFDClients{
   @@id([clientId, disciplineId])
 }
 
+model Metrics{
+  metricId            Int       @id @default(autoincrement())
+  metricName          String
+  metricDescription   String
+  metricCategory      String
+  metricStatus        Status    @default(ACTIVE)
+}
+
 enum Role {
   CLIENT
   ADMIN
