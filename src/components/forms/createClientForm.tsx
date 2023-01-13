@@ -2,8 +2,6 @@ import { Status } from "@prisma/client";
 import { z } from "zod";
 
 import {
-  publicProcedure,
-  protectedProcedure,
   router,
   superAdminRouter,
 } from "../../server/trpc/router/superAdmin";
