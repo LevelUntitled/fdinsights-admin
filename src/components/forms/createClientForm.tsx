@@ -2,7 +2,6 @@ import { Status } from "@prisma/client";
 import { z } from "zod";
 
 import {
-  router,
   superAdminRouter,
 } from "../../server/trpc/router/superAdmin";
 import { FC, useState } from "react";
