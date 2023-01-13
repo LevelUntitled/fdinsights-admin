@@ -1,9 +1,7 @@
 import { Status } from "@prisma/client";
 import { z } from "zod";
 
-import {
-  superAdminRouter,
-} from "../../server/trpc/router/superAdmin";
+import { superAdminRouter } from "../../server/trpc/router/superAdmin";
 import { FC, useState } from "react";
 import { Col, Input, Label, Row } from "reactstrap";
 const CreateClientForm: FC = () => {
@@ -23,7 +21,7 @@ const CreateClientForm: FC = () => {
     subDomain: "",
   });
 
-  const handleChange = (e : any) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
@@ -31,7 +29,7 @@ const CreateClientForm: FC = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
 
     superAdminRouter
