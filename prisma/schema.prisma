@@ -139,8 +139,7 @@ model FDUser {
   channels        Json?
   lastUpdated     DateTime  @updatedAt
   lastActive      DateTime?
-  // modulesEnabled  Modules[] 
-  logs            Logs[]
+  // modulesEnabled  Modules[]
   // isDeleted   Boolean  @default(false)
 }
 
@@ -194,8 +193,9 @@ model AgencyMarket{
 
 model Logs{
   id        String    @id @default(cuid())
-  userID    String
-  user      FDUser    @relation(fields: [userID], references: [id])
+  role      Role?
+  name      String?
+  desc      String?
   log_time  DateTime  @default(now())
 }
 
