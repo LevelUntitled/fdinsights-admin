@@ -8,6 +8,10 @@ const inputDataValidations = z.object({
     name   : z.string().min(1).optional(),
     country: z.string().min(1).max(60).optional(),
     status :  z.nativeEnum(Status).optional(),
+    users : z.object({
+        ids : z.number().array().optional(),
+        name : z.string().array().optional()
+    })
 })
 
 const validateInputData = (inputs: unknown) => {
@@ -31,7 +35,8 @@ const updateMarket = async(req: NextApiRequest, res: NextApiResponse) => {
             data : {
                 name    : sanitizedInput.name,
                 country : sanitizedInput.country,
-                status  : sanitizedInput.status
+                status  : sanitizedInput.status,
+                users   : sanitizedInput.users
             }
         })
         res.status(200).json({
