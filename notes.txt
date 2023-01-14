@@ -3,3 +3,9 @@ NEVER USE PRISMA MIGRATE WITH PLANETSCALE
 ALWAYS USE `npx prisma db push` while working with planetscale
 
 https://github.com/prisma/prisma/issues/7292
+
+the jsons mostly used in schema are identifier objects which will have property of name and id which will help in locating the property 
+obj : {
+    ids : [],
+    name : []
+}
