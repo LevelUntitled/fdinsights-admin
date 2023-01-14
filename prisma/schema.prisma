@@ -100,7 +100,7 @@ model FDClient {
   keyContact        String?
   sso               SSO     @default(GOOGLE)
   vendorTypes       Json?    // vendor type list, this will contain an array
-  modulesEnabled    ClientsAndModules[]
+  // modulesEnabled    ClientsAndModules[]
   modules           Json?
   description       String?
   mediaMarket       Json?
@@ -113,7 +113,7 @@ model FDClient {
   staff             Json?
   elements          Json?
   channels          Json?
-  lastUpdated     DateTime  @updatedAt
+  lastUpdated     DateTime? @updatedAt
   lastActive      DateTime?
   // isDeleted   Boolean  @default(false)
 }
@@ -158,20 +158,20 @@ model Vendors{
   tags          Json
 }
 
-model Modules{
-  id       Int      @id @default(autoincrement())
-  name     String   @unique
-  clients  ClientsAndModules[]
-}
+// model Modules{
+//   id       Int      @id @default(autoincrement())
+//   name     String   @unique
+//   clients  ClientsAndModules[]
+// }
 
-model ClientsAndModules {
-  client    FDClient   @relation(fields: [clientId], references: [id])
-  clientId  String
-  module    Modules    @relation(fields: [moduleId], references: [id])
-  moduleId  Int
+// model ClientsAndModules {
+//   client    FDClient   @relation(fields: [clientId], references: [id])
+//   clientId  String
+//   module    Modules    @relation(fields: [moduleId], references: [id])
+//   moduleId  Int
   
-  @@id([clientId, moduleId])
-}
+//   @@id([clientId, moduleId])
+// }
 
 model MediaMarket{
   id      Int       @id @default(autoincrement())
