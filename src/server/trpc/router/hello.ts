@@ -15,17 +15,4 @@ export const helloRouter = router({
     return ctx.prisma.fDClient.findMany();
   }),
 
-  createVendor: publicProcedure
-  .input(z.object({
-    name : z.string(),
-  }))
-  .mutation(async({ ctx, input }) => {
-    console.log('ctx');
-    
-    return ctx.prisma.vendors.create({
-        data : {
-            name : input.name,
-        }
-    }) ;
-  }),
 });

@@ -76,8 +76,8 @@ model VerificationToken {
 
 model FDClient {
   id                String @id @default(cuid())
-  company           String?
-  logo              String
+  company           String
+  logo              String?
   industry          String
   addLine1          String
   addLine2          String
