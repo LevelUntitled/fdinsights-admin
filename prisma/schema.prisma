@@ -120,6 +120,7 @@ model FDClient {
 
 model FDUser {
   id              String    @id @default(cuid())
+  parentClient    String
   firstName       String
   lastName        String
   country         String
