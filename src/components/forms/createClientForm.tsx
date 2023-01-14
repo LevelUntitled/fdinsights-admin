@@ -2,8 +2,9 @@ import { Status } from "@prisma/client";
 import { z } from "zod";
 
 import { superAdminRouter } from "../../server/trpc/router/superAdmin";
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { Col, Input, Label, Row } from "reactstrap";
+import { trpc } from "../../utils/trpc";
 const CreateClientForm: FC = () => {
   const [formData, setFormData] = useState({
     company: "",
@@ -21,7 +22,7 @@ const CreateClientForm: FC = () => {
     subDomain: "",
   });
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
@@ -29,22 +30,31 @@ const CreateClientForm: FC = () => {
     }));
   };
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
+  // create a function that post data in prisma with superAdmin.ts
 
-    superAdminRouter
-      .createClient({
-        ctx: {
-          prisma,
-        },
-        Input: formData,
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const clientSchema = z.object({
+      company: z.string(),
+      industry: z.string(),
+      addLine1: z.string(),
+      addLine2: z.string(),
+      city: z.string(),
+      postcode: z.string(),
+      state: z.string(),
+      fiscalStart: z.string(),
+      fiscalEnd: z.string(),
+      subStart: z.string(),
+      subEnd: z.string(),
+      notes: z.string(),
+      subDomain: z.string(),
+    });
+    const clientData = clientSchema.parse(formData);
+
+    // const client = await superAdminRouter.createClient(clientData);
+    // console.log(client);
   };
 
   return (

@@ -1,36 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { Row, Col, Alert, Container } from "reactstrap";
+import { FcGoogle } from "react-icons/fc";
+// import { AvForm, AvField } from "availity-reactstrap-validation";
 
-// availity-reactstrap-validation
-import { AvForm, AvField } from "availity-reactstrap-validation";
+import { useRouter } from "next/router";
 
-//Social Media Imports
-// import { GoogleLogin } from "react-google-login";
-// import TwitterLogin from "react-twitter-auth"
-// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-
-// actions
-// import { loginUser, socialLogin } from "../../store/actions";
-
-// import images
 import logo from "../../assets/images/logo-sm.svg";
 
-//Import config
-// import config from "../../config";
 import CarouselLogin from "../components/login/carousel";
-
+import { useSession, signIn, signOut } from "next-auth/react";
 interface LoginProps {
   history: object;
 }
 
 const Login = ({ history }: LoginProps) => {
+  const { data: session } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (session) {
+      router.push("/dashboard");
+    }
+  });
+
   return (
-    <React.Fragment>
+    <>
       <div className="auth-page">
         <Container fluid className="p-0">
           <Row className="g-0">
-            <Col lg={4} md={5} className="col-xxl-3">
+            <Col lg={4} md={5} className=" col-xxl-3 z-50">
               <div className="auth-full-page-content d-flex p-sm-5 p-4">
                 <div className="w-100">
                   <div className="d-flex flex-column h-100">
@@ -47,76 +45,12 @@ const Login = ({ history }: LoginProps) => {
                           Sign in to continue to FdInsight.
                         </p>
                       </div>
-                      <AvForm className="custom-form mt-4 pt-2">
-                        {/* {error ? <Alert color="danger">{error}</Alert> : null} */}
-                        <div className="mb-3">
-                          <AvField
-                            name="email"
-                            label="Email"
-                            value="admin@fdinsight.com"
-                            className="form-control"
-                            placeholder="Enter email"
-                            type="email"
-                            required
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <div className="d-flex align-items-start">
-                            <div className="flex-grow-1">
-                              <label className="form-label">Password</label>
-                            </div>
-                            <div className="flex-shrink-0">
-                              <div className="">
-                                <p
-                                  //   to="/auth-recoverpw"
-                                  className="text-muted"
-                                >
-                                  Forgot password?
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="mb-3">
-                            <AvField
-                              name="password"
-                              value="123456"
-                              type="password"
-                              className="form-control"
-                              required
-                              placeholder="Enter Password"
-                            />
-                          </div>
-                        </div>
-                        <div className="row mb-4">
-                          <div className="col">
-                            <div className="form-check">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                id="remember-check"
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="remember-check"
-                              >
-                                Remember me
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mb-3">
-                          <button
-                            className="btn btn-primary w-100 waves-effect waves-light"
-                            type="submit"
-                          >
-                            Log In
-                          </button>
-                        </div>
-                      </AvForm>
 
                       <div className="mt-4 text-center">
                         <h5 className="font-size-14 mb-3">Sign in with</h5>
+                        <button onClick={() => signIn("google")}>
+                          <FcGoogle />
+                        </button>
 
                         <ul className="list-inline">
                           <li className="list-inline-item">
@@ -177,11 +111,8 @@ const Login = ({ history }: LoginProps) => {
 
                       <div className="mt-5 text-center">
                         <p className="text-muted mb-0">
-                          Don't have an account ?{" "}
-                          <p
-                            to="/register"
-                            className="text-primary fw-semibold"
-                          >
+                          Dont have an account ?{" "}
+                          <p className="text-primary fw-semibold">
                             {" "}
                             Signup now{" "}
                           </p>{" "}
@@ -196,7 +127,7 @@ const Login = ({ history }: LoginProps) => {
           </Row>
         </Container>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

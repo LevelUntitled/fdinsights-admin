@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "../components/shared/navbar/navBar";
-import Sidebar from "../components/shared/sideBar/sideBar";
+import Navbar from "../components/shared/navbar/NavBar";
+import Sidebar from "../components/shared/sideBar/SideBar";
 
 const Dashboard = () => {
   return (
