@@ -211,7 +211,7 @@ model Markets{
 
 model Disciplines{
   id            Int     @id @default(autoincrement())
-  users         Json
+  users         Json?
   parentClient  String
   name          String
   desc          String
@@ -220,7 +220,7 @@ model Disciplines{
 
 model Assets{
   id            Int     @id @default(autoincrement())
-  users         Json
+  users         Json?
   parentClient  String
   name          String
   desc          String
@@ -248,7 +248,7 @@ model Metrics{
 
 model Staff{
   id            Int     @id @default(autoincrement())
-  users         Json
+  users         Json?
   parentClient  String
   name          String
   jobTitle      String
@@ -266,7 +266,7 @@ model Staff{
 
 model Channel{
   id            Int     @id @default(autoincrement())
-  users         Json
+  users         Json?
   parentClient  String
   name          String
   desc          String
@@ -280,7 +280,7 @@ model Channel{
 
 model Elements{
   id            Int     @id @default(autoincrement())
-  users         Json
+  users         Json?
   parentClient  String
   name          String
   desc          String

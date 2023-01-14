@@ -20,7 +20,7 @@ export const superAdminRouter = router({
             subDomain : z.string(),
 
         }))
-        .mutation(async({ ctx, input }) => {    
+        .mutation(async({ ctx, input }) => {            
             return ctx.prisma.fDClient.create({
                 data : {
                     company  : input.company,
