@@ -1,6 +1,6 @@
 import React from "react";
 import CreateClientForm from "../components/forms/createClientForm";
-import Navbar from "../components/shared/navbar/navBar";
+import Navbar from "../components/shared/navbar/Navbar";
 
 const CreateClient = () => {
   return (

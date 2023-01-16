@@ -1,16 +1,17 @@
-import NextAuth from "next-auth";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import GithubProvider from "next-auth/providers/github";
+import { env } from "../../../env/server.mjs";
 
-export default NextAuth({
-  // Configure one or more authentication providers
+export const authOptions: NextAuthOptions = {
+  // Include user.id on session
+
   providers: [
     GoogleProvider({
-      clientId: process.env.DISCORD_CLIENT_ID,
-      clientSecret: process.env.DISCORD_CLIENT_SECRET,
+      clientId: env.DISCORD_CLIENT_ID,
+      clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
-
     // ...add more providers here
   ],
-  secret: process.env.NEXTAUTH_SECRET,
-});
+};
+
+export default NextAuth(authOptions);

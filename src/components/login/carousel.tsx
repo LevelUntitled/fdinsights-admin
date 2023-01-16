@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { Carousel, CarouselItem, CarouselIndicators } from "reactstrap";
 
-import img1 from "../../../public/login/avatar-1.jpg";
-import img2 from "../../../public/login/avatar-2.jpg";
-import img3 from "../../../public/login/avatar-3.jpg";
-
 const items = [
   {
     id: 1,
