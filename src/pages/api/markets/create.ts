@@ -5,6 +5,7 @@ import { prisma } from "../../../server/db/client";
 const inputDataValidations = z.object({
     name   : z.string().min(1),
     country: z.string().min(1).max(60),
+    parentClient : z.string().min(1).max(20)
 })
 
 const validateInputData = (inputs: unknown) => {
@@ -22,6 +23,7 @@ const createMarket = async(req:NextApiRequest, res :NextApiResponse) => {
             data : {
                 name : sanitizedInput.name,
                 country: sanitizedInput.country,
+                parentClient : sanitizedInput.parentClient
             }
         })
 

@@ -76,8 +76,8 @@ model VerificationToken {
 
 model FDClient {
   id                String @id @default(cuid())
-  company           String?
-  logo              String
+  company           String
+  logo              String?
   industry          String
   addLine1          String
   addLine2          String
@@ -94,22 +94,33 @@ model FDClient {
   subDomain         String   @unique
   role              Role     @default(CLIENT)
   status            Status   @default(ACTIVE)
-  health            Decimal
-  nps               Decimal
+  health            Decimal?
+  nps               Decimal?
   users             FDUser[] // key contact
-  keyContact        String
-  sso               SSO
+  keyContact        String?
+  sso               SSO     @default(GOOGLE)
   vendorTypes       Json?    // vendor type list, this will contain an array
-  modulesEnabled    ClientsAndModules[]
+  // modulesEnabled    ClientsAndModules[]
+  modules           Json?
   description       String?
   mediaMarket       Json?
   agencyMarket      Json?
   productionMarket  Json?
+  markets           Json?
+  disciplines       Json?
+  assets            Json?
+  metrics           Json?
+  staff             Json?
+  elements          Json?
+  channels          Json?
+  lastUpdated     DateTime? @updatedAt
+  lastActive      DateTime?
   // isDeleted   Boolean  @default(false)
 }
 
 model FDUser {
   id              String    @id @default(cuid())
+  parentClient    String
   firstName       String
   lastName        String
   country         String
@@ -119,8 +130,17 @@ model FDUser {
   createdAt       DateTime  @default(now())
   client          FDClient  @relation(fields: [id], references: [id])
   status          Status    @default(ACTIVE)
-  // modulesEnabled  Modules[] 
-  logs            Logs[]
+  modules         Json?                           
+  markets         Json?
+  disciplines     Json?
+  assets          Json?
+  metrics         Json?
+  staff           Json?
+  elements        Json?
+  channels        Json?
+  lastUpdated     DateTime  @updatedAt
+  lastActive      DateTime?
+  // modulesEnabled  Modules[]
   // isDeleted   Boolean  @default(false)
 }
 
@@ -138,20 +158,20 @@ model Vendors{
   tags          Json
 }
 
-model Modules{
-  id       Int      @id @default(autoincrement())
-  name     String   @unique
-  clients  ClientsAndModules[]
-}
+// model Modules{
+//   id       Int      @id @default(autoincrement())
+//   name     String   @unique
+//   clients  ClientsAndModules[]
+// }
 
-model ClientsAndModules {
-  client    FDClient   @relation(fields: [clientId], references: [id])
-  clientId  String
-  module    Modules    @relation(fields: [moduleId], references: [id])
-  moduleId  Int
+// model ClientsAndModules {
+//   client    FDClient   @relation(fields: [clientId], references: [id])
+//   clientId  String
+//   module    Modules    @relation(fields: [moduleId], references: [id])
+//   moduleId  Int
   
-  @@id([clientId, moduleId])
-}
+//   @@id([clientId, moduleId])
+// }
 
 model MediaMarket{
   id      Int       @id @default(autoincrement())
@@ -174,24 +194,102 @@ model AgencyMarket{
 
 model Logs{
   id        String    @id @default(cuid())
-  userID    String
-  user      FDUser    @relation(fields: [userID], references: [id])
+  role      Role?
+  name      String?
+  desc      String?
   log_time  DateTime  @default(now())
 }
 
 
 model Markets{
-  id      Int     @id @default(autoincrement())
-  name    String
-  country String
-  status  Status  @default(ACTIVE)
+  id            Int     @id @default(autoincrement())
+  users         Json?
+  parentClient  String
+  name          String
+  country       String
+  status        Status  @default(ACTIVE)
 }
 
 model Disciplines{
-  id          Int     @id @default(autoincrement())
-  name        String
-  description String
-  status      Status  @default(ACTIVE)
+  id            Int     @id @default(autoincrement())
+  users         Json?
+  parentClient  String
+  name          String
+  desc          String
+  status        Status  @default(ACTIVE)
+}
+
+model Assets{
+  id            Int     @id @default(autoincrement())
+  users         Json?
+  parentClient  String
+  name          String
+  desc          String
+  type          Json?
+  category      Json?
+  rates         Json?
+  jobTitle      Json?
+  discipline    Json?
+  status        Status  @default(ACTIVE)      
+}
+
+model Metrics{
+  id            Int     @id @default(autoincrement())
+  users         Json
+  parentClient  String
+  name          String
+  desc          String
+  status        Status  @default(ACTIVE)
+  type          Json?
+  discipline    Json?
+  market        Json?
+  value         Decimal?
+  tier          String?
+}
+
+model Staff{
+  id            Int     @id @default(autoincrement())
+  users         Json?
+  parentClient  String
+  name          String
+  jobTitle      String
+  exp           Int
+  abbrevation   String
+  desc          String
+  alt           Json
+  discipline    Json?
+  market        Json?
+  dept          Json?
+  annualRate    Json?
+  tier          String?
+  status        Status   @default(ACTIVE)
+}
+
+model Channel{
+  id            Int     @id @default(autoincrement())
+  users         Json?
+  parentClient  String
+  name          String
+  desc          String
+  market        Json?
+  discipline    Json?
+  low           Json?
+  high          Json?
+  notes         String?
+  status        Status  @default(ACTIVE)
+}
+
+model Elements{
+  id            Int     @id @default(autoincrement())
+  users         Json?
+  parentClient  String
+  name          String
+  desc          String
+  type          Json?
+  market        Json?
+  discipline    Json?
+  rates         Json?
+  status        Status  @default(ACTIVE)  
 }
 
 enum Role {
