@@ -1,10 +1,14 @@
-import React, { useState } from "react";
-import Sidebar from "../sideBar/sideBar";
+import React, { FC, useState } from "react";
+import Sidebar from "../sideBar/SideBar";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { RxDashboard } from "react-icons/rx";
+import Link from "next/link";
 
-const Navbar = () => {
-  const [isButton1Open, setIsButton1Open] = useState(false);
-  const [isButton2Open, setIsButton2Open] = useState(false);
-  const [isButton3Open, setIsButton3Open] = useState(false);
+const Navbar: FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState<any>(true);
+  const [isButton1Open, setIsButton1Open] = useState<any>(false);
+  const [isButton2Open, setIsButton2Open] = useState<any>(false);
+  const [isButton3Open, setIsButton3Open] = useState<any>(false);
 
   const handleButtonClick = (button: any) => {
     setIsButton1Open(false);
@@ -28,9 +32,88 @@ const Navbar = () => {
   return (
     <nav className="flex h-16 items-center justify-between border-b-2 bg-white text-[#555B6D]">
       <div className="flex items-center">
-        <h3 className=" text-xl font-medium">
-          <Sidebar />
-        </h3>
+        {isModalOpen ? (
+          <div className="ease-in-x absolute top-0 left-0 h-[100vh] w-[12vw] bg-[#0C1427] ">
+            {/* this is for logo  */}
+            <div>
+              {" "}
+              <span>this is logo</span>
+              <button
+                onClick={() => {
+                  setIsModalOpen(!isModalOpen);
+                }}
+              >
+                <GiHamburgerMenu />
+              </button>
+            </div>
+            {/* links  */}
+            <ul className="pt-20">
+              <li>
+                <Link className="flex flex-row items-center gap-4" href="#">
+                  <span>
+                    <RxDashboard />
+                  </span>
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link className="flex flex-row items-center gap-4" href="#">
+                  <span>
+                    <RxDashboard />
+                  </span>
+                  Explore
+                </Link>
+              </li>
+              <li>
+                <Link className="flex flex-row items-center gap-4" href="#">
+                  <span>
+                    <RxDashboard />
+                  </span>
+                  Insight
+                </Link>
+              </li>
+              <li>
+                <Link className="flex flex-row items-center gap-4" href="#">
+                  <span>
+                    <RxDashboard />
+                  </span>
+                  Plan
+                </Link>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <>
+            <div className="absolute top-0 left-0 h-[100vh] w-[4vw] bg-[#0C1427] ">
+              {/* this is for logo  */}
+              <div>
+                {" "}
+                <span>logo</span>
+                <button
+                  className="ml-[4vw]"
+                  onClick={() => {
+                    setIsModalOpen(!isModalOpen);
+                  }}
+                >
+                  <GiHamburgerMenu />
+                </button>
+              </div>
+              {/* links  */}
+              <ul className="pt-20">
+                <li>
+                  <Link className="flex flex-row items-center gap-4" href="#">
+                    <span>
+                      <RxDashboard />
+                    </span>
+                    {/* <RxDashboard /> */}
+                    Dashboard
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <GiHamburgerMenu />
+          </>
+        )}
       </div>
       <div className="flex">
         <button

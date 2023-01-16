@@ -4,7 +4,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
+    <div>
       <button onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? (
           <button className="rounded-lg bg-gray-600 p-2 text-white">
@@ -17,7 +17,7 @@ const Sidebar = () => {
         )}
       </button>
       <div
-        className={`absolute top-0 transform rounded-lg bg-gray-200  transition duration-500 ease-in-out ${
+        className={`absolute top-0 left-0 transform rounded-lg bg-gray-200  transition duration-500 ease-in-out ${
           isOpen ? "w-64 translate-x-0" : "w-12 translate-x-0"
         }`}
       >
@@ -36,7 +36,7 @@ const Sidebar = () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
