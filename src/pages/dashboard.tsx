@@ -1,13 +1,19 @@
 import React from "react";
+<<<<<<< Updated upstream
 import Navbar from "../components/shared/navbar/Navbar";
+=======
+import Navbar from "../components/shared/navbar/navBar";
+import Sidebar from "../components/shared/sideBar/SideBar";
+>>>>>>> Stashed changes
 
 const Dashboard = () => {
   return (
-    <div>
-      {/* <Sidebar /> */}
-      <Navbar />
-      <h1>Dashboard</h1>
-    </div>
+    <>
+      <div>
+        <Navbar />
+        <h1>Dashboard</h1>
+      </div>
+    </>
   );
 };
 
