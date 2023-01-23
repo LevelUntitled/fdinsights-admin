@@ -310,3 +310,22 @@ enum SSO{
   GOOGLE
   MICROSOFT
 }
+
+model Guestbook {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+   company           String
+  logo              String?
+  industry          String
+  addLine1          String
+  addLine2          String
+  city              String
+  postcode          Int
+  state             String
+  fiscalStart       DateTime
+  fiscalEnd         DateTime
+  subStart          DateTime
+  subEnd            DateTime
+  notes             String
+  subDomain         String   @unique
+}

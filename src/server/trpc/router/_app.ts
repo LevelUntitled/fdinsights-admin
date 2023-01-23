@@ -8,7 +8,7 @@ export const appRouter = router({
   example: exampleRouter,
   auth: authRouter,
   hello: helloRouter,
-  superAdmin : superAdminRouter,
+  superAdmin: superAdminRouter,
 });
 
 // export type definition of API

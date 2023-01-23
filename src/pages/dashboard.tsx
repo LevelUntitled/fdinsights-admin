@@ -1,14 +1,17 @@
 import React from "react";
-import Navbar from "../components/shared/navbar/NavBar";
-import Sidebar from "../components/shared/sideBar/SideBar";
+import Index from "../components/dashboard/Index";
+
+import Navbar from "../components/shared/navbar/Navbar";
 
 const Dashboard = () => {
   return (
-    <div>
-      {/* <Sidebar /> */}
+    <>
       <Navbar />
-      <h1>Dashboard</h1>
-    </div>
+      <div className="mx-[15vw]">
+        <h1 className="my-8">Dashboard</h1>
+        <Index />
+      </div>
+    </>
   );
 };
 

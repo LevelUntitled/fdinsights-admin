@@ -6,9 +6,9 @@ import { FcGoogle } from "react-icons/fc";
 
 import { useRouter } from "next/router";
 
-import logo from "../../assets/images/logo-sm.svg";
+// import logo from "../../assets/images/logo-sm.svg";
 
-import CarouselLogin from "../components/login/carousel";
+import CarouselLogin from "../components/login/Carousel";
 import { useSession, signIn, signOut } from "next-auth/react";
 interface LoginProps {
   history: object;
