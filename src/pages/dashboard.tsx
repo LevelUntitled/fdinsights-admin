@@ -1,7 +1,6 @@
 import React from "react";
 import Index from "../components/dashboard/Index";
-// @ts-ignore
-import Navbar from "../components/shared/navbar/Navbar";
+import Navbar from "../components/shared/navbar/navBar";
 
 const Dashboard = () => {
   return (

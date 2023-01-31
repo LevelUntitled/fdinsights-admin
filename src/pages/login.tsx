@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 // import logo from "../../assets/images/logo-sm.svg";
 
-import CarouselLogin from "../components/login/Carousel";
+import CarouselLogin from "../components/login/carousel";
 import { useSession, signIn, signOut } from "next-auth/react";
 interface LoginProps {
   history: object;

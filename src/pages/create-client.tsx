@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CreateClientForm from "../components/forms/createClientForm";
-import Navbar from "../components/shared/navbar/Navbar";
+import Navbar from "../components/shared/navbar/navBar";
 
 const CreateClient = () => {
   useEffect(() => {
