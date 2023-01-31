@@ -2,7 +2,7 @@ import React from "react";
 import Linecharts from "../components/charts/Linecharts";
 import Piecharts from "../components/charts/Piecharts";
 
-const options: Object = {
+const options = {
   chart: {
     height: 50,
     type: "line",
@@ -52,8 +52,8 @@ const options: Object = {
 const PageTest = () => {
   return (
     <div>
-      <Piecharts text="hello" />
-      <Linecharts options={options} />
+      {/* <Piecharts text="hello" />
+      <Linecharts /> */}
     </div>
   );
 };
