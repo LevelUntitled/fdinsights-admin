@@ -1,17 +1,20 @@
 import { Status } from "@prisma/client";
 import { z } from "zod";
-
+import { useRouter } from "next/router";
 import { superAdminRouter } from "../../server/trpc/router/superAdmin";
 import React, { FC, useState } from "react";
 import { Col, Input, Label, Row } from "reactstrap";
 import { trpc } from "../../utils/trpc";
+import Link from "next/link";
 const CreateClientForm: FC = () => {
   const [formData, setFormData] = useState({
     company: "",
+    logo: "",
     industry: "",
     addLine1: "",
     addLine2: "",
     city: "",
+    // write postcode as int
     postcode: "",
     state: "",
     fiscalStart: "",
@@ -20,41 +23,54 @@ const CreateClientForm: FC = () => {
     subEnd: "",
     notes: "",
     subDomain: "",
+    superUser: "",
+    // status: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
+    setFormData((data) => ({
+      ...data,
+      [e.target.name]: e.target.value,
     }));
   };
 
-  // create a function that post data in prisma with superAdmin.ts
-
-  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const clientSchema = z.object({
-      company: z.string(),
-      industry: z.string(),
-      addLine1: z.string(),
-      addLine2: z.string(),
-      city: z.string(),
-      postcode: z.string(),
-      state: z.string(),
-      fiscalStart: z.string(),
-      fiscalEnd: z.string(),
-      subStart: z.string(),
-      subEnd: z.string(),
-      notes: z.string(),
-      subDomain: z.string(),
-    });
-    const clientData = clientSchema.parse(formData);
-
-    // const client = await superAdminRouter.createClient(clientData);
-    // console.log(client);
+    try {
+      const data = fetch("/api/superAdmin/createClient", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          company: formData.company,
+          logo: formData.logo,
+          industry: formData.industry,
+          addLine1: formData.addLine1,
+          addLine2: formData.addLine2,
+          city: formData.city,
+          postcode: formData.postcode,
+          state: formData.state,
+          fiscalStart: formData.fiscalStart,
+          fiscalEnd: formData.fiscalEnd,
+          subStart: formData.subStart,
+          subEnd: formData.subEnd,
+          notes: formData.notes,
+          subDomain: formData.subDomain,
+          superUsers: formData.superUser,
+          // status: formData.status,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          // router.push("/dashboard");
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -68,6 +84,16 @@ const CreateClientForm: FC = () => {
               type="text"
               name="company"
               value={formData.company}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-3">
+            <Label htmlFor="logo">Logo</Label>
+            <Input
+              className="form-control"
+              type="text"
+              name="logo"
+              value={formData.logo}
               onChange={handleChange}
             />
           </div>
@@ -86,7 +112,7 @@ const CreateClientForm: FC = () => {
             <Input
               className="form-control"
               type="text"
-              name="industry"
+              name="addLine1"
               value={formData.addLine1}
               onChange={handleChange}
             />
@@ -96,7 +122,7 @@ const CreateClientForm: FC = () => {
             <Input
               className="form-control"
               type="text"
-              name="industry"
+              name="addLine2"
               value={formData.addLine2}
               onChange={handleChange}
             />
@@ -106,7 +132,7 @@ const CreateClientForm: FC = () => {
             <Input
               className="form-control"
               type="text"
-              name="industry"
+              name="city"
               value={formData.city}
               onChange={handleChange}
             />
@@ -116,7 +142,7 @@ const CreateClientForm: FC = () => {
             <Input
               className="form-control"
               type="text"
-              name="industry"
+              name="postcode"
               value={formData.postcode}
               onChange={handleChange}
             />
@@ -126,7 +152,7 @@ const CreateClientForm: FC = () => {
             <Input
               className="form-control"
               type="text"
-              name="industry"
+              name="state"
               value={formData.state}
               onChange={handleChange}
             />
@@ -138,7 +164,7 @@ const CreateClientForm: FC = () => {
             <Input
               className="form-control"
               type="text"
-              name="industry"
+              name="fiscalEnd"
               value={formData.fiscalEnd}
               onChange={handleChange}
             />
@@ -148,7 +174,7 @@ const CreateClientForm: FC = () => {
             <Input
               className="form-control"
               type="text"
-              name="industry"
+              name="fiscalStart"
               value={formData.fiscalStart}
               onChange={handleChange}
             />
@@ -158,27 +184,18 @@ const CreateClientForm: FC = () => {
             <Input
               className="form-control"
               type="text"
-              name="industry"
+              name="subStart"
               value={formData.subStart}
               onChange={handleChange}
             />
           </div>
-          <div className="mb-3">
-            <Label htmlFor="industry">Sub start</Label>
-            <Input
-              className="form-control"
-              type="text"
-              name="industry"
-              value={formData.subStart}
-              onChange={handleChange}
-            />
-          </div>
+
           <div className="mb-3">
             <Label htmlFor="industry">Sub end</Label>
             <Input
               className="form-control"
               type="text"
-              name="industry"
+              name="subEnd"
               value={formData.subEnd}
               onChange={handleChange}
             />
@@ -188,7 +205,7 @@ const CreateClientForm: FC = () => {
             <Input
               className="form-control"
               type="text"
-              name="industry"
+              name="notes"
               value={formData.notes}
               onChange={handleChange}
             />
@@ -198,18 +215,35 @@ const CreateClientForm: FC = () => {
             <Input
               className="form-control"
               type="text"
-              name="industry"
+              name="subDomain"
               value={formData.subDomain}
               onChange={handleChange}
             />
           </div>
+          <div className="mb-3">
+            <Label htmlFor="industry">Super User</Label>
+            <Input
+              className="form-control"
+              type="text"
+              name="superUser"
+              value={formData.superUser}
+              onChange={handleChange}
+            />
+          </div>
+          {/* <div className="mb-3">
+            <Label htmlFor="industry">Status</Label>
+            <Input
+              className="form-control"
+              type="text"
+              name="subDomain"
+              value={formData.status}
+              onChange={handleChange}
+            />
+          </div> */}
         </Col>
       </Row>
 
-      <button
-        className="btn btn-success waves-effect waves-light"
-        type="submit"
-      >
+      <button className="btn btn-success text-black " type="submit">
         Create Client
       </button>
     </form>

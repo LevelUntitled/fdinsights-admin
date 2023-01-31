@@ -1,17 +1,17 @@
-import { trpc } from '../utils/trpc';
-import { useState } from 'react';
+import { trpc } from "../utils/trpc";
+import { useState } from "react";
+import { useMutation } from "react-query";
 
 let s = "";
 
 export default function IndexPage() {
-  const hello = trpc.hello.createVendor.useMutation({ 
+  const hello = trpc.hello.useMutation({
     async onSuccess() {
       // refetches posts after a post is added
-      s = 'hello';
-
+      s = "hello";
     },
-   });
-  
+  });
+
   // const hello = trpc.hello.hello.useQuery({
   //   text: "hello"
   // })
@@ -19,16 +19,16 @@ export default function IndexPage() {
   return (
     <div>
       <form
-        onSubmit={async(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          try{
-            await hello.mutateAsync({ name : "pepsi" })
-          }catch(err){
+          try {
+            await hello.mutateAsync({ name: "pepsi" });
+          } catch (err) {
             console.log(err);
           }
         }}
       >
-        <input type='submit'/>
+        <input type="submit" />
       </form>
     </div>
   );

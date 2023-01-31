@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import Sidebar from "../sideBar/SideBar";
+import Sidebar from "../sideBar/Sidebar";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxDashboard } from "react-icons/rx";
 import Link from "next/link";
@@ -33,11 +33,11 @@ const Navbar: FC = () => {
     <nav className="flex h-16 items-center justify-between border-b-2 bg-white text-[#555B6D]">
       <div className="flex items-center">
         {isModalOpen ? (
-          <div className="ease-in-x absolute top-0 left-0 h-[100vh] w-[12vw] bg-[#0C1427] ">
+          <div className="ease-in-x fixed top-0 left-0 h-[100vh] w-[12vw] bg-[#0C1427] ">
             {/* this is for logo  */}
             <div>
               {" "}
-              <span>this is logo</span>
+              <span>logo</span>
               <button
                 onClick={() => {
                   setIsModalOpen(!isModalOpen);
@@ -49,7 +49,10 @@ const Navbar: FC = () => {
             {/* links  */}
             <ul className="pt-20">
               <li>
-                <Link className="flex flex-row items-center gap-4" href="#">
+                <Link
+                  className="flex flex-row items-center gap-4"
+                  href="/dashboard"
+                >
                   <span>
                     <RxDashboard />
                   </span>
@@ -57,27 +60,36 @@ const Navbar: FC = () => {
                 </Link>
               </li>
               <li>
-                <Link className="flex flex-row items-center gap-4" href="#">
+                <Link
+                  className="flex flex-row items-center gap-4"
+                  href="create-client"
+                >
                   <span>
                     <RxDashboard />
                   </span>
-                  Explore
+                  Create Client
                 </Link>
               </li>
               <li>
-                <Link className="flex flex-row items-center gap-4" href="#">
+                <Link
+                  className="flex flex-row items-center gap-4"
+                  href="/create-markets"
+                >
                   <span>
                     <RxDashboard />
                   </span>
-                  Insight
+                  Markets
                 </Link>
               </li>
               <li>
-                <Link className="flex flex-row items-center gap-4" href="#">
+                <Link
+                  className="flex flex-row items-center gap-4"
+                  href="/create-vendors"
+                >
                   <span>
                     <RxDashboard />
                   </span>
-                  Plan
+                  Vendors
                 </Link>
               </li>
             </ul>
