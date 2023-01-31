@@ -1,6 +1,6 @@
 import { Status } from "@prisma/client";
 import { z } from "zod";
-import { NextRouter } from "next/router";
+import { useRouter } from "next/router";
 import { superAdminRouter } from "../../server/trpc/router/superAdmin";
 import React, { FC, useState } from "react";
 import { Col, Input, Label, Row } from "reactstrap";
@@ -14,6 +14,7 @@ const CreateClientForm: FC = () => {
     addLine1: "",
     addLine2: "",
     city: "",
+    // write postcode as int
     postcode: "",
     state: "",
     fiscalStart: "",
@@ -22,19 +23,51 @@ const CreateClientForm: FC = () => {
     subEnd: "",
     notes: "",
     subDomain: "",
+    superUser: "",
+    // status: "",
   });
 
-  //create entry in prisma and trpc db with handle change and handlesubmit functions
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((data) => ({ ...data, [name]: value }));
+    setFormData((data) => ({
+      ...data,
+      [e.target.name]: e.target.value,
+    }));
   };
+
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await trpc.superAdmin.createClient.useMutation(formData);
+      const data = fetch("/api/superAdmin/createClient", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          company: formData.company,
+          logo: formData.logo,
+          industry: formData.industry,
+          addLine1: formData.addLine1,
+          addLine2: formData.addLine2,
+          city: formData.city,
+          postcode: formData.postcode,
+          state: formData.state,
+          fiscalStart: formData.fiscalStart,
+          fiscalEnd: formData.fiscalEnd,
+          subStart: formData.subStart,
+          subEnd: formData.subEnd,
+          notes: formData.notes,
+          subDomain: formData.subDomain,
+          superUsers: formData.superUser,
+          // status: formData.status,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          // router.push("/dashboard");
+        });
     } catch (err) {
       console.log(err);
     }
@@ -51,6 +84,16 @@ const CreateClientForm: FC = () => {
               type="text"
               name="company"
               value={formData.company}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-3">
+            <Label htmlFor="logo">Logo</Label>
+            <Input
+              className="form-control"
+              type="text"
+              name="logo"
+              value={formData.logo}
               onChange={handleChange}
             />
           </div>
@@ -177,14 +220,32 @@ const CreateClientForm: FC = () => {
               onChange={handleChange}
             />
           </div>
+          <div className="mb-3">
+            <Label htmlFor="industry">Super User</Label>
+            <Input
+              className="form-control"
+              type="text"
+              name="superUser"
+              value={formData.superUser}
+              onChange={handleChange}
+            />
+          </div>
+          {/* <div className="mb-3">
+            <Label htmlFor="industry">Status</Label>
+            <Input
+              className="form-control"
+              type="text"
+              name="subDomain"
+              value={formData.status}
+              onChange={handleChange}
+            />
+          </div> */}
         </Col>
       </Row>
 
-      <Link href="/dashboard">
-        <button className="btn btn-success text-black " type="submit">
-          Create Client
-        </button>
-      </Link>
+      <button className="btn btn-success text-black " type="submit">
+        Create Client
+      </button>
     </form>
   );
 };

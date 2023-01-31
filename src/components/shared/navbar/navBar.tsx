@@ -33,7 +33,7 @@ const Navbar: FC = () => {
     <nav className="flex h-16 items-center justify-between border-b-2 bg-white text-[#555B6D]">
       <div className="flex items-center">
         {isModalOpen ? (
-          <div className="ease-in-x absolute top-0 left-0 h-[100vh] w-[12vw] bg-[#0C1427] ">
+          <div className="ease-in-x fixed top-0 left-0 h-[100vh] w-[12vw] bg-[#0C1427] ">
             {/* this is for logo  */}
             <div>
               {" "}
@@ -71,19 +71,25 @@ const Navbar: FC = () => {
                 </Link>
               </li>
               <li>
-                <Link className="flex flex-row items-center gap-4" href="#">
+                <Link
+                  className="flex flex-row items-center gap-4"
+                  href="/create-markets"
+                >
                   <span>
                     <RxDashboard />
                   </span>
-                  Insight
+                  Markets
                 </Link>
               </li>
               <li>
-                <Link className="flex flex-row items-center gap-4" href="#">
+                <Link
+                  className="flex flex-row items-center gap-4"
+                  href="/create-vendors"
+                >
                   <span>
                     <RxDashboard />
                   </span>
-                  Plan
+                  Vendors
                 </Link>
               </li>
             </ul>

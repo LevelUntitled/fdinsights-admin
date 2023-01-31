@@ -14,12 +14,14 @@ export const superAdminRouter = router({
         city: z.string(),
         postcode: z.number(),
         state: z.string(),
-        fiscalStart: z.date(),
-        fiscalEnd: z.date(),
-        subStart: z.date(),
+        fiscalStart: z.string(),
+        fiscalEnd: z.string(),
+        subStart: z.string(),
         subEnd: z.string(),
         notes: z.string(),
         subDomain: z.string(),
+        // role: z.nativeEnum(status),
+        status: z.nativeEnum(Status),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -39,6 +41,8 @@ export const superAdminRouter = router({
           subEnd: input.subEnd,
           notes: input.notes,
           subDomain: input.subDomain,
+          // role: input.role,
+          status: input.status,
         },
       });
     }),

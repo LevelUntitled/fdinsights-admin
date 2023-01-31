@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CreateClientForm from "../components/forms/createClientForm";
 import Navbar from "../components/shared/navbar/Navbar";
 
 const CreateClient = () => {
+  useEffect(() => {
+    const getAllClients = async () => {
+      const data = await fetch("/api/superAdmin/getAllClient");
+      const clients = await data.json();
+      console.log(clients);
+      // setFetchData(clients);
+    };
+  }, []);
+
   return (
     <>
       <Navbar />

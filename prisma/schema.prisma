@@ -82,80 +82,80 @@ model FDClient {
   addLine1          String
   addLine2          String
   city              String
-  postcode          Int
+  postcode          String
   state             String
-  fiscalStart       DateTime
-  fiscalEnd         DateTime
-  subStart          DateTime
-  subEnd            DateTime
+  fiscalEnd         String
+  subStart          String
+  subEnd            String
+  fiscalStart       String
   clientSince       DateTime @default(now())
   updatedAt         DateTime @updatedAt
   notes             String
   subDomain         String   @unique
   role              Role     @default(CLIENT)
   status            Status   @default(ACTIVE)
-  health            Decimal?
-  nps               Decimal?
-  users             FDUser[] // key contact
-  keyContact        String?
+  superUsers        String?
+  // health            Decimal?
+  // nps               Decimal?
+  // users             FDUser[] // key contact
+  // keyContact        String?
   sso               SSO     @default(GOOGLE)
-  vendorTypes       Json?    // vendor type list, this will contain an array
-  // modulesEnabled    ClientsAndModules[]
-  modules           Json?
+  // vendorTypes       Json?    // vendor type list, this will contain an array
+  // // modulesEnabled    ClientsAndModules[]
+  // modules           Json?
   description       String?
-  mediaMarket       Json?
-  agencyMarket      Json?
-  productionMarket  Json?
+ 
   markets           Json?
-  disciplines       Json?
-  assets            Json?
-  metrics           Json?
-  staff             Json?
-  elements          Json?
-  channels          Json?
-  lastUpdated     DateTime? @updatedAt
-  lastActive      DateTime?
+  // disciplines       Json?
+  // assets            Json?
+  // metrics           Json?
+  // staff             Json?
+  // elements          Json?
+  // channels          Json?
+  // lastUpdated     DateTime? @updatedAt
+  // lastActive      DateTime?
   // isDeleted   Boolean  @default(false)
 }
 
-model FDUser {
-  id              String    @id @default(cuid())
-  parentClient    String
-  firstName       String
-  lastName        String
-  country         String
-  state           String
-  email           String    @unique
-  linkedin        String
-  createdAt       DateTime  @default(now())
-  client          FDClient  @relation(fields: [id], references: [id])
-  status          Status    @default(ACTIVE)
-  modules         Json?                           
-  markets         Json?
-  disciplines     Json?
-  assets          Json?
-  metrics         Json?
-  staff           Json?
-  elements        Json?
-  channels        Json?
-  lastUpdated     DateTime  @updatedAt
-  lastActive      DateTime?
-  // modulesEnabled  Modules[]
-  // isDeleted   Boolean  @default(false)
-}
+// model FDUser {
+//   id              String    @id @default(cuid())
+//   parentClient    String
+//   firstName       String
+//   lastName        String
+//   country         String
+//   state           String
+//   email           String    @unique
+//   linkedin        String
+//   createdAt       DateTime  @default(now())
+//   client          FDClient  @relation(fields: [id], references: [id])
+//   status          Status    @default(ACTIVE)
+//   modules         Json?                           
+//   markets         Json?
+//   disciplines     Json?
+//   assets          Json?
+//   metrics         Json?
+//   staff           Json?
+//   elements        Json?
+//   channels        Json?
+//   lastUpdated     DateTime  @updatedAt
+//   lastActive      DateTime?
+//   // modulesEnabled  Modules[]
+//   // isDeleted   Boolean  @default(false)
+// }
 
 model Vendors{
   id            Int        @id @default(autoincrement())
   name          String     @unique
   industry      String  
   headquarters  String
-  foundedYear   Int
-  staffCount    Int
+  foundedYear   String
+  staffCount    String
   type          String
   parentOrg     String
-  subsidiaries  Json
-  linkedinUrl   String
-  tags          Json
+  rate          String
+  // subsidiaries  Json
+  // websiteURL   String
+  // tags          Json
 }
 
 // model Modules{
@@ -173,24 +173,7 @@ model Vendors{
 //   @@id([clientId, moduleId])
 // }
 
-model MediaMarket{
-  id      Int       @id @default(autoincrement())
-  name    String    @unique
-  country String 
-  status  Status    @default(ACTIVE)
-}
 
-model ProductionMarket{
-  id      Int          @id @default(autoincrement())
-  name    String       @unique
-  country String 
-  status  Status       @default(ACTIVE)
-}
-
-model AgencyMarket{
-  id      Int           @id @default(autoincrement())
-  name    String        @unique
-}
 
 model Logs{
   id        String    @id @default(cuid())
@@ -208,6 +191,7 @@ model Markets{
   name          String
   country       String
   status        Status  @default(ACTIVE)
+  type          MarketTypes 
 }
 
 model Disciplines{
@@ -311,21 +295,8 @@ enum SSO{
   MICROSOFT
 }
 
-model Guestbook {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-   company           String
-  logo              String?
-  industry          String
-  addLine1          String
-  addLine2          String
-  city              String
-  postcode          Int
-  state             String
-  fiscalStart       DateTime
-  fiscalEnd         DateTime
-  subStart          DateTime
-  subEnd            DateTime
-  notes             String
-  subDomain         String   @unique
+enum MarketTypes{
+  AGENCY
+  PRODUCTION
+  MEDIA
 }
