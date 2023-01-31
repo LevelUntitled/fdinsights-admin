@@ -26,7 +26,7 @@ const MarketsTable = () => {
         const data = await response.json();
         console.log("code:", data.data);
         setMarkets(data.data);
-      } catch (error) {
+      } catch (error: any) {
         setError(error);
       }
       setLoading(false);

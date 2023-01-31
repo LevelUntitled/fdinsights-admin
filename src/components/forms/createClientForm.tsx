@@ -1,11 +1,5 @@
-import { Status } from "@prisma/client";
-import { z } from "zod";
-import { useRouter } from "next/router";
-import { superAdminRouter } from "../../server/trpc/router/superAdmin";
 import React, { FC, useState } from "react";
 import { Col, Input, Label, Row } from "reactstrap";
-import { trpc } from "../../utils/trpc";
-import Link from "next/link";
 const CreateClientForm: FC = () => {
   const [formData, setFormData] = useState({
     company: "",
@@ -34,12 +28,10 @@ const CreateClientForm: FC = () => {
     }));
   };
 
-  const router = useRouter();
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const data = fetch("/api/superAdmin/createClient", {
+      fetch("/api/superAdmin/createClient", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

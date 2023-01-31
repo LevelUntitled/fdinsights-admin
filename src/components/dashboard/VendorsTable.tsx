@@ -1,13 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {
-  Row,
-  Col,
-  Card,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardHeader,
-} from "reactstrap";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
@@ -26,7 +17,7 @@ const VendorsTable = () => {
         const data = await response.json();
         console.log("code:", data.data);
         setVendors(data.data);
-      } catch (error) {
+      } catch (error: any) {
         setError(error);
       }
       setLoading(false);
