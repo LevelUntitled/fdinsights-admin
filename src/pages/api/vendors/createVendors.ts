@@ -28,7 +28,9 @@ const createVendors = async (req: NextApiRequest, res: NextApiResponse) => {
         name: sanitizedInput.name,
         industry: sanitizedInput.industry,
         headquarters: sanitizedInput.headquarters,
+        // @ts-ignore
         foundedYear: sanitizedInput.foundedYear,
+        // @ts-ignore
         staffCount: sanitizedInput.staffCount,
         type: sanitizedInput.type,
         parentOrg: sanitizedInput.parentOrg,

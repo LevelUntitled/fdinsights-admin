@@ -38,6 +38,7 @@ const createClient = async (req: NextApiRequest, res: NextApiResponse) => {
         addLine1: sanitizedInput.addLine1,
         addLine2: sanitizedInput.addLine2,
         city: sanitizedInput.city,
+        // @ts-ignore
         postcode: sanitizedInput.postcode,
         state: sanitizedInput.state,
         fiscalStart: sanitizedInput.fiscalStart,
