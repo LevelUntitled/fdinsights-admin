@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import Sidebar from "../sideBar/Sidebar";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxDashboard } from "react-icons/rx";
 import Link from "next/link";
