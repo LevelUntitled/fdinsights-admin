@@ -5,14 +5,15 @@ import { prisma } from "../../../server/db/client";
 const getAll = async (req: NextApiRequest, res: NextApiResponse) => {
     try{
         const getAllActive = await prisma.markets.findMany({
-            where : {
-                status : 'ACTIVE'
-            },
+            // where : {
+            //     status :  'ACTIVE' 
+            // },
             select : {
                 name : true,
                 country : true,
                 id : true,
                 status : true,
+                type:true
             }
         })
 

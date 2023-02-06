@@ -67,7 +67,7 @@ const CreateClientForm: FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Row>
+      <Row className="mt-5 bg-gray-200 rounded-xl p-5 mb-5">
         <Col md={6}>
           <div className="mb-3">
             <Label htmlFor="company">Company</Label>

@@ -10,13 +10,14 @@ const CreateClient = () => {
       console.log(clients);
       // setFetchData(clients);
     };
+    getAllClients()
   }, []);
 
   return (
     <>
       <Navbar />
       <div className="mx-[15vw]">
-        <h2 className="font-size-22 mb-0 font-semibold ">Create Client</h2>
+        <h2 className="font-size-22 mb-0 font-bold text-3xl mt-2 ">Create Client</h2>
         <CreateClientForm />
       </div>
     </>

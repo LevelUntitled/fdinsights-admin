@@ -10,8 +10,8 @@ const inputDataValidations = z.object({
   status: z.nativeEnum(Status).optional(),
   users: z.object({
     ids: z.number().array().optional(),
-    name: z.string().array().optional(),
-  }),
+    name: z.string().array().optional()
+  }).optional()
 });
 
 const validateInputData = (inputs: unknown) => {

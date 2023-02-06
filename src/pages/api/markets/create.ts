@@ -31,6 +31,7 @@ const createMarket = async (req: NextApiRequest, res: NextApiResponse) => {
         country: sanitizedInput.country,
         // @ts-ignore
         parentClient: sanitizedInput.parentClient,
+        type:sanitizedInput.type
       },
     });
 
