@@ -91,6 +91,17 @@ const Navbar: FC = () => {
                   Vendors
                 </Link>
               </li>
+              <li>
+                <Link
+                  className="flex flex-row items-center gap-4"
+                  href="/calculations"
+                >
+                  <span>
+                    <RxDashboard />
+                  </span>
+                  Calculations
+                </Link>
+              </li>
             </ul>
           </div>
         ) : (

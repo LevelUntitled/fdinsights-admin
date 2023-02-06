@@ -45,6 +45,7 @@ const ClientTable = () => {
               <Tr key={idx}>
                 <Td>{client.company}</Td>
                 <Td>{client.industry}</Td>
+                <Td>{client.status}</Td>
               </Tr>
             );
           })}

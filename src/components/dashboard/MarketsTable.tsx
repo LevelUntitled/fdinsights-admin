@@ -16,21 +16,22 @@ const MarketsTable = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchMarkets = async () => {
-      try {
-        setError(null);
+  const fetchMarkets = async () => {
+    try {
+      setError(null);
 
-        setLoading(true);
-        const response = await fetch("/api/markets/getAll");
-        const data = await response.json();
-        console.log("code:", data.data);
-        setMarkets(data.data);
-      } catch (error: any) {
-        setError(error);
-      }
-      setLoading(false);
-    };
+      setLoading(true);
+      const response = await fetch("/api/markets/getAll");
+      const data = await response.json();
+      console.log("code:", data.data);
+      setMarkets(data.data);
+    } catch (error: any) {
+      setError(error);
+    }
+    setLoading(false);
+  };
+  
+  useEffect(() => {
     fetchMarkets();
   }, []);
 
@@ -43,23 +44,27 @@ const MarketsTable = () => {
         <Thead>
           <Tr>
             <Th data-priority="1">Name</Th>
-            <Th data-priority="3">Country</Th>
+            <Th data-priority="1">Country</Th>
             <Th data-priority="1">status</Th>
             <Th data-priority="1">Market Type</Th>
           </Tr>
         </Thead>
-        <Tbody>
+        <Tbody className="">
           {markets.map((market, idx) => {
             return (
               <Tr key={idx}>
                 <Td>{market.name}</Td>
                 <Td>{market.country}</Td>
-                <Td
-                  clssName={
-                    market.status == "ACTIVE" ? "text-red-500" : "text-blue-200"
-                  }
-                >
-                  {market.status}
+                <Td>
+                  <h1
+                    className={`${
+                      market.status === "ACTIVE"
+                        ? "text-red-500"
+                        : "text-blue-500"
+                    } font-bold`}
+                  >
+                    {market.status}
+                  </h1>
                 </Td>
                 <Td>{market.type}</Td>
               </Tr>
